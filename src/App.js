@@ -15,13 +15,13 @@ function App() {
     <Routes>
           <Route path="/" element={<Layout />}>
           {/* public routes */}
-          <Route path="/login" element={<Login/>} ></Route>
-          <Route path="/register" element={<Register/>}></Route>
+          <Route path="login" element={<Login/>} ></Route>
+          <Route path="register" element={<Register/>}></Route>
           <Route path="linkpage" element={<LinkPage />} />
           <Route path="unauthorized" element={<Unauthorized />} />
 
           {/* we want to protect these routes */}
-          <Route element={<RequireAuth />}>
+          <Route element={<RequireAuth allowedRoles={["user", "admin"]}  />}>
           <Route>
           <Route path="/" element={<Home />} />
           </Route>

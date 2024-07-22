@@ -37,7 +37,7 @@ const Login = () => {
       const response = await axios.post(LOGIN_URL, formData, { withCredentials: true });
       const accessToken = response?.data?.access_token;
       const role = response?.data?.role;
-      setAuth({ user: formData?.email, role, accessToken });
+      setAuth({ user: formData?.email, role , accessToken });
 
       setFormData({
         email: '',
