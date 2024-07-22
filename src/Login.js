@@ -1,13 +1,25 @@
-import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import AuthContext from './context/AuthProvider';
+
+import { Link } from 'react-router-dom';
+import axios from './api/axios';
+
+const LOGIN_URL = '/auth/login'
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
+  const userRef = useRef(); 
 
   const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -18,15 +30,39 @@ const Login = () => {
     e.preventDefault();
 
     try{
-      const response = await axios.post('http://localhost:3000/api/auth/login', formData);
+      const response = await axios.post(LOGIN_URL, formData, { withCredentials: true });
+      const accessToken = response?.data?.access_token;
+      const role = response?.data?.role;
+      setAuth({ email: formData?.email, role, accessToken });
+
+      setFormData({
+        email: '',
+        password: ''
+      });
+      setSuccess(true);
       console.log(response);
     }catch(err){
-      console.log("in err catch block:", err.response.data.errors[0].message);
-      setErrMsg(err.response.data.errors[0].message)
+      if (!err.response){
+        setErrMsg('No Server Response')
+      }
+      else{
+        console.log("in err catch block:", err.response.data.errors[0].message);
+        setErrMsg(err.response?.data?.errors[0].message)
+      }
     }
   }
 
   return (
+    <>
+    {success ? 
+    (
+      <section>
+        <h1>Success!</h1>
+        <p>
+        <Link to="/#">Home</Link>
+        </p>
+      </section>
+    ) : (
     <section>
     <p
       className={errMsg ? "errmsg" : "offscreen"}
@@ -42,6 +78,7 @@ const Login = () => {
       type='text'
       id='email'
       name='email'
+      ref={userRef}
       onChange={handleChange}
       required
     />
@@ -55,9 +92,23 @@ const Login = () => {
       required
     />
 
-    <button type='submit' >Login</button>
+    <button 
+      type='submit' 
+      disabled={!formData.email || !formData.password ? true : false}
+      >
+        Login
+      </button>
   </form>
-</section>
+
+      <p>
+          Need new account? <br/>
+          <span>
+            <Link to="/register">Sign In</Link>
+          </span>
+        </p>
+    </section>
+    )}
+    </>
 )
 }
 
