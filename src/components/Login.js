@@ -1,17 +1,21 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
-import AuthContext from './context/AuthProvider';
+import React, { useEffect, useRef, useState } from 'react';
+import useAuth from '../hooks/useAuth';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';
-import axios from './api/axios';
+import axios from '../api/axios';
 
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const userRef = useRef(); 
 
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -33,13 +37,13 @@ const Login = () => {
       const response = await axios.post(LOGIN_URL, formData, { withCredentials: true });
       const accessToken = response?.data?.access_token;
       const role = response?.data?.role;
-      setAuth({ email: formData?.email, role, accessToken });
+      setAuth({ user: formData?.email, role, accessToken });
 
       setFormData({
         email: '',
         password: ''
       });
-      setSuccess(true);
+      navigate(from, { replace: true });
       console.log(response);
     }catch(err){
       if (!err.response){
@@ -53,16 +57,7 @@ const Login = () => {
   }
 
   return (
-    <>
-    {success ? 
-    (
-      <section>
-        <h1>Success!</h1>
-        <p>
-        <Link to="/#">Home</Link>
-        </p>
-      </section>
-    ) : (
+
     <section>
     <p
       className={errMsg ? "errmsg" : "offscreen"}
@@ -107,9 +102,7 @@ const Login = () => {
           </span>
         </p>
     </section>
-    )}
-    </>
-)
+  )
 }
 
 export default Login;
