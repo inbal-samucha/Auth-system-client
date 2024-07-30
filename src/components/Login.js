@@ -7,7 +7,7 @@ import axios from '../api/axios';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,8 +35,12 @@ const Login = () => {
 
     try{
       const response = await axios.post(LOGIN_URL, formData, { withCredentials: true });
-      const accessToken = response?.data?.access_token;
+      const accessToken = response?.data?.accessToken;
       const role = response?.data?.role;
+
+      console.log('response in Login form ', response);
+
+      console.log('accessToken in Login form ', accessToken);
       setAuth({ user: formData?.email, role , accessToken });
 
       setFormData({
@@ -55,6 +59,14 @@ const Login = () => {
       }
     }
   }
+
+  const togglePersist = () => {
+    setPersist(prev => !prev);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist])
 
   return (
 
@@ -80,7 +92,7 @@ const Login = () => {
 
     <label htmlFor='password'>password:</label>
     <input 
-      type='text'
+      type='password'
       id='password'
       name='password'
       onChange={handleChange}
@@ -93,6 +105,16 @@ const Login = () => {
       >
         Login
       </button>
+
+      <div>
+        <input 
+          type='checkbox' 
+          id='persist'
+          onChange={togglePersist}
+          checked={persist}
+        />
+        <label htmlFor='persist'> Trust this device</label>
+      </div>
   </form>
 
       <p>

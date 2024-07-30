@@ -79,7 +79,7 @@ const Register = () => {
 
           <label htmlFor='password'>password:</label>
           <input 
-            type='text'
+            type='password'
             id='password'
             name='password'
             onChange={handleChange}
