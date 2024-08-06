@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 import axios from '../api/axios';
 
@@ -61,6 +63,34 @@ const Login = () => {
     setPersist(prev => !prev);
   }
 
+  const getGoogleOauthURL = () => {
+    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+    const options = {
+      redirect_uri: process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL,
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      access_type: 'offline',
+      response_type: 'code',
+      prompt: 'consent',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+      ].join(" ")
+    };
+
+    console.log('process.env.REACT_APP_', process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL);
+
+    console.log(options);
+
+    const qs = new URLSearchParams(options)
+
+    console.log( qs.toString());
+
+    const url = `${rootUrl}?${qs.toString()}`;
+
+    return url
+  }
+
   useEffect(() => {
     localStorage.setItem("persist", persist);
   }, [persist])
@@ -113,6 +143,8 @@ const Login = () => {
         <label htmlFor='persist'> Trust this device</label>
       </div>
   </form>
+    <br/>
+      <a href={getGoogleOauthURL()}>Login with google</a> <br />
 
       <p>
           Need new account? <br/>
