@@ -32,7 +32,7 @@ const Register = () => {
 
     try{
       const response = await axios.post(REGISTER_URL, formData, { withCredentials: true });
-      console.log(response);
+
       setSuccess(true);
       setFormData({
         firstName: '',

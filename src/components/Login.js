@@ -38,9 +38,6 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const role = response?.data?.role;
 
-      console.log('response in Login form ', response);
-
-      console.log('accessToken in Login form ', accessToken);
       setAuth({ user: formData?.email, role , accessToken });
 
       setFormData({
@@ -48,7 +45,7 @@ const Login = () => {
         password: ''
       });
       navigate(from, { replace: true });
-      console.log(response);
+
     }catch(err){
       if (!err.response){
         setErrMsg('No Server Response')
