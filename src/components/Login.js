@@ -78,13 +78,7 @@ const Login = () => {
       ].join(" ")
     };
 
-    console.log('process.env.REACT_APP_', process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL);
-
-    console.log(options);
-
     const qs = new URLSearchParams(options)
-
-    console.log( qs.toString());
 
     const url = `${rootUrl}?${qs.toString()}`;
 
