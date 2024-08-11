@@ -12,6 +12,7 @@ import PersistLogin from "./components/PersistLogin";
 import OAuthCallback from "./components/OAuthCallback";
 
 
+
 function App() {
   return (
 
@@ -23,7 +24,7 @@ function App() {
           <Route path="linkpage" element={<LinkPage />} />
           <Route path="unauthorized" element={<Unauthorized />} />
 
-          <Route path="/oauth2/callback" element={<OAuthCallback />} />
+          <Route path="/auth/callback" element={<OAuthCallback />} />
 
           {/* we want to protect these routes */}
           <Route element={<PersistLogin />}>

@@ -63,26 +63,11 @@ const Login = () => {
     setPersist(prev => !prev);
   }
 
+
+
+  
   const getGoogleOauthURL = () => {
-    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-
-    const options = {
-      redirect_uri: process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL,
-      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-      access_type: 'offline',
-      response_type: 'code',
-      prompt: 'consent',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-      ].join(" ")
-    };
-
-    const qs = new URLSearchParams(options)
-
-    const url = `${rootUrl}?${qs.toString()}`;
-
-    return url
+    window.location.href = 'http://localhost:3000/api/auth/oauth-google'; // Your server URL
   }
 
   useEffect(() => {
@@ -138,8 +123,8 @@ const Login = () => {
       </div>
   </form>
     <br/>
-      <a href={getGoogleOauthURL()}>Login with google</a> <br />
-
+      {/* <a href={getGoogleOauthURL()}>Login with google</a> <br /> */}
+      <button onClick={getGoogleOauthURL}>Login with Google</button>
       <p>
           Need new account? <br/>
           <span>
