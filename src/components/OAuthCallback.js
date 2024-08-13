@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axios'
 import useAuth from '../hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -18,7 +18,7 @@ const OAuthCallback = () => {
 
     const handleOAuthCallback = async () => {
       try{
-        const response = await axios.get(`http://localhost:3000/api/auth/google/callback?code=${code}`, { withCredentials: true });
+        const response = await axios.get(`/auth/google/callback?code=${code}`, { withCredentials: true });
         localStorage.setItem('accessToken', response?.data?.accessToken);
         setAuth({ role: response.data.role , accessToken: response?.data.accessToken });
   

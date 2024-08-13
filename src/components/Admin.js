@@ -3,11 +3,11 @@ import Users from "./Users"
 
 const Admin = () => {
     return (
-        <section>
+        <section className='center'>
             <h1>Admins Page</h1>
             <br />
             <Users />
-            <div>
+            <div className="link">
                 <Link to="/">Home</Link>
             </div>
         </section>

@@ -57,7 +57,7 @@ const Register = () => {
         </p>
       </section>
     ) : (
-    <section>
+    <section className='center'>
           <p
             className={errMsg ? "errmsg" : "offscreen"}
             aria-live="assertive"
@@ -67,6 +67,7 @@ const Register = () => {
           <h1>Register</h1>
 
         <form onSubmit={handleSignup}>
+        <div className='txt_field'>
           <label htmlFor='email'>email:</label>
           <input 
             type='text'
@@ -76,7 +77,9 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+        </div>
 
+        <div className='txt_field'>
           <label htmlFor='password'>password:</label>
           <input 
             type='password'
@@ -85,7 +88,9 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+        </div>
 
+        <div className='txt_field'>
           <label htmlFor='firstName'>first name:</label>
           <input 
             type='text'
@@ -94,7 +99,9 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+        </div>
 
+        <div className='txt_field'>
           <label htmlFor='lastName'>last name:</label>
           <input 
             type='text'
@@ -103,6 +110,7 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+        </div>
 
           <button 
             type='submit' 
@@ -112,12 +120,14 @@ const Register = () => {
           </button>
         </form>
 
+        <div className='users_signup'>
         <p>
-          Already registered? <br/>
+          Already registered?
           <span>
             <Link to="/login">Sign In</Link>
           </span>
         </p>
+        </div>
       </section>
     ) 
     } 

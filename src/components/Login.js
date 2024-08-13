@@ -76,7 +76,7 @@ const Login = () => {
 
   return (
 
-    <section>
+    <section className='center'>
     <p
       className={errMsg ? "errmsg" : "offscreen"}
       aria-live="assertive"
@@ -86,24 +86,28 @@ const Login = () => {
     <h1>Login</h1>
 
   <form onSubmit={handleLogin}>
-    <label htmlFor='email'>email:</label>
-    <input 
-      type='text'
-      id='email'
-      name='email'
-      ref={userRef}
-      onChange={handleChange}
-      required
-    />
+    <div className='txt_field'>
+      <label htmlFor='email'>email:</label>
+      <input 
+        type='text'
+        id='email'
+        name='email'
+        ref={userRef}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-    <label htmlFor='password'>password:</label>
-    <input 
-      type='password'
-      id='password'
-      name='password'
-      onChange={handleChange}
-      required
-    />
+    <div className='txt_field'>
+      <label htmlFor='password'>password:</label>
+      <input 
+        type='password'
+        id='password'
+        name='password'
+        onChange={handleChange}
+        required
+      />
+    </div>
 
     <button 
       type='submit' 
@@ -111,6 +115,8 @@ const Login = () => {
       >
         Login
       </button>
+
+      <button className='google' onClick={getGoogleOauthURL}>Login with Google</button>
 
       <div>
         <input 
@@ -122,16 +128,16 @@ const Login = () => {
         <label htmlFor='persist'> Trust this device</label>
       </div>
   </form>
-    <br/>
-      {/* <a href={getGoogleOauthURL()}>Login with google</a> <br /> */}
-      <button onClick={getGoogleOauthURL}>Login with Google</button>
+
+   <div className='users_signup'>
       <p>
-          Need new account? <br/>
+          Need new account? 
           <span>
-            <Link to="/register">Sign In</Link>
+          <Link to="/register">Sign Up</Link>
           </span>
         </p>
-    </section>
+    </div>   
+  </section>
   )
 }
 

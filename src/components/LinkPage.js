@@ -2,16 +2,24 @@ import { Link } from "react-router-dom"
 
 const LinkPage = () => {
     return (
-        <section>
+        <section className='center'>
             <h1>Links</h1>
-            <br />
+            <br/>
             <h2>Public</h2>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+
+            <div className="link">
+                <Link className="link" to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+            </div>
+
             <br />
             <h2>Private</h2>
-            <Link to="/">Home</Link>
-            <Link to="/admin">Admin Page</Link>
+
+            <div className="link">
+                <Link to="/">Home</Link> <br/>
+                <Link to="/admin">Admin Page</Link>
+            </div>
+
         </section>
     )
 }

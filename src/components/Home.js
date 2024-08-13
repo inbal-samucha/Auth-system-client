@@ -11,16 +11,21 @@ const Home = () => {
     }
 
     return (
-        <section>
+        <section className="center">
             <h1>Home</h1>
             <br />
+
+            <div className="link">
             <p>You are logged in!</p>
             <br />
             <Link to="/admin">Go to the Admin page</Link>
             <br />
             <Link to="/linkpage">Go to the link page</Link>
+
             <div>
-                <button onClick={signOut}>Sign Out</button>
+                <button className='btn' onClick={signOut}>Sign Out</button>
+            </div>
+
             </div>
 
         </section>

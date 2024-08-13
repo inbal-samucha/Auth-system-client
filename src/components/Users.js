@@ -35,12 +35,12 @@ const Users = () => {
   }, [])
 
   return (
-    <article>
+    <article className='artical_container'>
       <h2>Users List</h2>
       {users?.length 
       ?
         (
-        <ul>
+        <ul className='myUL'>
           {users.map((user, i) => <li key={i}>{user?.fullName}</li>)}
         </ul>
         ) : (
