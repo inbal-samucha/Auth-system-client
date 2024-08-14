@@ -67,7 +67,12 @@ const Login = () => {
 
   
   const getGoogleOauthURL = () => {
-    window.location.href = 'http://localhost:3000/api/auth/oauth-google'; // Your server URL
+    if (process.env.NODE_ENV === 'production') {
+      window.location.href = 'https://auth-system-server-vyt0.onrender.com/api/auth/oauth-google'; // Your server URL
+    } else {
+      window.location.href = 'http://localhost:3000/api/auth/oauth-google';
+    }    
+    
   }
 
   useEffect(() => {
